@@ -61,6 +61,7 @@
         app.component('login-form', {
             template: `
                 <form @submit.prevent="submitForm()">
+                    <h1>{{title}}</h1>
                     <input type="email" v-model="email" />
                     <input type="password" v-model="password" />
                     <button>log in</button>
@@ -68,6 +69,7 @@
             `,
             data(){
                 return{
+                    title:'Login Form',
                     email: '',
                     password: ''
                 }
