@@ -23,10 +23,16 @@
         [v-cloak]{
             display: none;
         }
+
+        input{
+            display: block;
+            margin: 0.5rem;
+        }
     </style>
 </head>
 <body>
     <div id="app" v-cloak>
+       <login-form /></login-form>
        <p>{{greeting}}</p>
        <input @keyup.enter="greet(greeting + '!!!')" type="text" v-model="greeting">
 
@@ -49,6 +55,26 @@
                 },
                 greet(greeting){
                     console.log(greeting);
+                }
+            }
+        })
+        app.component('login-form', {
+            template: `
+                <form @submit.prevent="submitForm()">
+                    <input type="email" v-model="email" />
+                    <input type="password" v-model="password" />
+                    <button>log in</button>
+                </form>
+            `,
+            data(){
+                return{
+                    email: '',
+                    password: ''
+                }
+            },
+            methods:{
+                submitForm(){
+                    console.log(this.email, this.password)
                 }
             }
         })
