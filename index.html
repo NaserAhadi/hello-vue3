@@ -66,8 +66,13 @@
             template: `
                 <form @submit.prevent="submitForm()">
                     <h1>{{title}}</h1>
-                    <custom-input v-model="email" inputType="email" label="Email" />
-                    <custom-input v-model="password" inputType="password" label="Password" />
+                    <custom-input 
+                        v-for="input in inputs"
+                        :key="input.type"
+                        v-model="input.value" 
+                        :inputType="input.type" 
+                        :label="input.label" 
+                    />
                     <button class="login-button">log in</button>
                 </form>
             `,
@@ -75,13 +80,26 @@
             data(){
                 return{
                     title:'Login Form',
-                    email: 'here is email',
-                    password: 'here is password'
+                    inputs:[
+                        {
+                            label: 'Email',
+                            value: '',
+                            type: 'email'
+                        },
+                        {
+                            label: 'Password',
+                            value: '',
+                            type: 'password'
+                        }
+                    ]
                 }
             },
             methods:{
                 submitForm(){
-                    console.log(this.email, this.password)
+                    console.log(this.findInputItem('email'), this.findInputItem('password'))
+                },
+                findInputItem(inputType){
+                    return this.inputs.find(input => input.type===inputType).value
                 }
             }
         })
