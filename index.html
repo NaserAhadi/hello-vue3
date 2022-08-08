@@ -42,7 +42,7 @@
 
        <hr> 
        <button @click="toggleBox()">Toggle Box</button>
-       <div v-if="isVisibleBox" class="box"></div>
+       <test-box v-if="isVisibleBox" class="box"></test-box>
     </div>
     <script src="https://unpkg.com/vue@3"></script>
     <script>
@@ -53,6 +53,7 @@
                     isVisibleBox: false,
                 }
             },
+            components:['test-box'],
             methods:{
                 toggleBox(){
                     this.isVisibleBox = !this.isVisibleBox
@@ -60,6 +61,9 @@
                 greet(greeting){
                     console.log(greeting);
                 }
+            },
+            updated(){
+                console.log('updated hook run when data is changed');
             }
         })
         app.component('login-form', {
@@ -134,7 +138,20 @@
                 }
             },
         })
-
+        app.component('test-box',{
+            template:`
+                <div class="box"></div>
+            `,
+            created(){
+                console.log('created');
+            },
+            mounted(){
+                console.log('mounted');
+            },
+            unmounted(){
+                console.log('unmounted');
+            }
+        })
         app.mount('#app')
     </script>
 </body>
